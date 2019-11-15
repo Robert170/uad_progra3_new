@@ -7,6 +7,7 @@ using namespace std;
 
 CQuadtreeNode::CQuadtreeNode()
 {
+	///
 }
 
 CQuadtreeNode::~CQuadtreeNode()
