@@ -1,0 +1,38 @@
+# IGNORE TEMPORARY COMPILATION FILES
+# ----------------------------------
+#
+# ------------------------------------------------------
+# Examen Final Progra2
+# ------------------------------------------------------
+/uad_progra3/Include/CAppExamenFinal.h
+/uad_progra3/Include/CSceneManager.h
+/uad_progra3/Source/CAppExamenFinal.cpp
+/uad_progra3/Source/CSceneManager.cpp
+/uad_progra3/Source/CAppParcial2.cpp
+/uad_progra3/Source/COpenGLRenderer.bkup.cpp
+/uad_progra3/Include/COpenGLRenderer.bkup.h
+# ------------------------------------------------------
+# PDB, IPDB, ILK, IOBJ
+# ------------------------------------------------------
+/uad_progra3/Binaries/Exe/x86/Release/*.iobj
+/uad_progra3/Binaries/Exe/x86/Release/*.ipdb
+/uad_progra3/Binaries/Exe/x86/Release/*.pdb
+/uad_progra3/Binaries/Exe/x86/Debug/*.ilk
+/uad_progra3/Binaries/Exe/x86/Debug/*.pdb
+/uad_progra3/Binaries/Exe/x64/Release/*.iobj
+/uad_progra3/Binaries/Exe/x64/Release/*.ipdb
+/uad_progra3/Binaries/Exe/x64/Release/*.pdb
+/uad_progra3/Binaries/Exe/x64/Debug/*.ilk
+/uad_progra3/Binaries/Exe/x64/Debug/*.pdb
+# ------------------------------------------------------
+# Intermediate compilation files (.obj)
+# ------------------------------------------------------
+/uad_progra3/Binaries/Intermediate
+/uad_progra3/Binaries/Intermediate/*
+# ------------------------------------------------------
+# Visual Studio Intellisense *VC.db file
+# ------------------------------------------------------
+/uad_progra3/uad_progra3.VC.db
+/uad_progra3/uad_progra3.VC.VC.opendb
+/uad_progra3/.vs/*
+#
