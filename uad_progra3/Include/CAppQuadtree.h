@@ -41,6 +41,12 @@ public:
 	// Called when mouse moves within the window
 	void onMouseMove(float deltaX, float deltaY);
 
+	// Current object rotation, expressed in degrees
+	double m_objectRotation;
+
+	// Current object position
+	CVector3 m_objectPosition;
+
 	// Methods overriden by CAppObjLoader
 	// ----------------------------------
 
@@ -50,6 +56,9 @@ public:
 	CHexGrid *m_Grid;
 
 	unsigned int m_colorModelShaderId;
+
+	int LimteSubdiv;
+	int LimiteTriangulos;
 
 	
 	Cquadtree * Quadtree;

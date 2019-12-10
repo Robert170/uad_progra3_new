@@ -14,10 +14,6 @@ CQuadtreeNode::~CQuadtreeNode()
 {
 }
 
-void CQuadtreeNode::Subdivide()
-{
-}
-
 void CQuadtreeNode::Render(COpenGLRenderer*Render, unsigned int ShaderID)
 {
 	float Col[3] = { 0,0.3f,0 };
@@ -66,7 +62,7 @@ void CQuadtreeNode::SetBound(AABB_2D Datos)
 	bounds = Datos;
 }
 
-void CQuadtreeNode::FirstDivide(int Lim, AABB_2D ParentBounds, CHexGrid C, int Fil, int Col)
+void CQuadtreeNode::FirstDivide(int Lim, AABB_2D ParentBounds, CHexGrid C, int Fil, int Col, int SubActual, int MaxDiv)
 {
 	int TriCont = 0;
 	for (int i = 0; i < Fil; i++)
@@ -76,7 +72,7 @@ void CQuadtreeNode::FirstDivide(int Lim, AABB_2D ParentBounds, CHexGrid C, int F
 			TriCont += C.HEXA[i][j].getTriangleCount();
 		}
 	}
-	if ((Fil*Col)==1 || TriCont < Lim)
+	if ((Fil*Col)==1 || TriCont < Lim || SubActual >= MaxDiv)
 	{
 		//Copiar elementos de Cells a m_Data
 		D = C.HEXA;
@@ -142,25 +138,25 @@ void CQuadtreeNode::FirstDivide(int Lim, AABB_2D ParentBounds, CHexGrid C, int F
 			for (int j = 0; j < Col; j++)
 			{
 				CHexGridCell  cell = C.HEXA[i][j];
-				CVector3	Corners[4];
+				CVector3	Cor[6];
 				for (int k = 1; k < 7; k++)
 				{
-					cell.calePoint(cell.Position, k, C.CellSZ, C.Ponty);
+					Cor[k] = cell.calePoint(cell.Position, k, C.CellSZ, C.Ponty);
 				}
 				//obtener las esquinas de la celda implementar
-				if (ChildBound[0].Points(Corners))
+				if (ChildBound[0].Points(Cor))
 				{
 					ChildCells[0].push_back(&cell);
 				}
-				if (ChildBound[1].Points(Corners))
+				if (ChildBound[1].Points(Cor))
 				{
 					ChildCells[1].push_back(&cell);
 				}
-				if (ChildBound[2].Points(Corners))
+				if (ChildBound[2].Points(Cor))
 				{
 					ChildCells[2].push_back(&cell);
 				}
-				if (ChildBound[3].Points(Corners))
+				if (ChildBound[3].Points(Cor))
 				{
 					ChildCells[3].push_back(&cell);
 				}
@@ -168,10 +164,10 @@ void CQuadtreeNode::FirstDivide(int Lim, AABB_2D ParentBounds, CHexGrid C, int F
 			
 		}
 
-		h1->SubDivide(Lim, ChildBound[0], &ChildCells[0]);
-		h2->SubDivide(Lim, ChildBound[1], &ChildCells[1]);
-		h3->SubDivide(Lim, ChildBound[2], &ChildCells[2]);
-		h4->SubDivide(Lim, ChildBound[3], &ChildCells[3]);
+		h1->SubDivide(Lim, ChildBound[0], ChildCells[0], SubActual++, MaxDiv);
+		h2->SubDivide(Lim, ChildBound[1], ChildCells[1], SubActual++, MaxDiv);
+		h3->SubDivide(Lim, ChildBound[2], ChildCells[2], SubActual++, MaxDiv);
+		h4->SubDivide(Lim, ChildBound[3], ChildCells[3], SubActual++, MaxDiv);
 	}
 }
 
@@ -185,14 +181,14 @@ bool CQuadtreeNode::Carga(COpenGLRenderer * Render, unsigned int ShaderID)
 	return Si_o_no;
 }
 
-void CQuadtreeNode::SubDivide(int Limit, AABB_2D ParentBounds, std::vector<CHexGridCell*>* Cell)
+void CQuadtreeNode::SubDivide(int Limit, AABB_2D ParentBounds, std::vector<CHexGridCell*> Cell, int SubActual, int MaxDiv)
 {
 	int TriCont = 0;
-	for (int i = 0; i < Cell->size(); i++)
+	for (int i = 0; i < Cell.size(); i++)
 	{
-		//TriCont += Cell[i].getTriangleCont();
+		TriCont += Cell[i]->getTriangleCount();
 	}
-	if (Cell->size() == 1 || TriCont < Limit)
+	if (Cell.size() == 1 || TriCont < Limit || SubActual >= MaxDiv)
 	{
 		//Copiar elementos de Cells a m_Data
 		m_Data = Cell;
@@ -253,33 +249,37 @@ void CQuadtreeNode::SubDivide(int Limit, AABB_2D ParentBounds, std::vector<CHexG
 
 		std::vector<CHexGridCell*>ChildCells[4];
 
-		for (int i = 0; i < Cell->size(); i++)
+		for (int i = 0; i < Cell.size(); i++)
 		{
-			CHexGridCell  cell = *Cell->at(i);
-			CVector3	Corners[4];
+			CHexGridCell  cell = *Cell.at(i);
+			CVector3	Cor[6];
+			for (int k = 1; k < 7; k++)
+			{
+				Corners[k] = cell.calePoint(cell.Position, k, 1.5, true);
+			}
 			//obtener las esquinas de la celda implementar
-			if (ChildBound[0].Points(Corners))
+			if (ChildBound[0].Points(Cor))
 			{
 				ChildCells[0].push_back(&cell);
 			}
-			if (ChildBound[1].Points(Corners))
+			if (ChildBound[1].Points(Cor))
 			{
 				ChildCells[1].push_back(&cell);
 			}
-			if (ChildBound[2].Points(Corners))
+			if (ChildBound[2].Points(Cor))
 			{
 				ChildCells[2].push_back(&cell);
 			}
-			if (ChildBound[3].Points(Corners))
+			if (ChildBound[3].Points(Cor))
 			{
 				ChildCells[3].push_back(&cell);
 			}
 		}
 
-		h1->SubDivide(Limit, ChildBound[0], &ChildCells[0]);
-		h2->SubDivide(Limit, ChildBound[1], &ChildCells[1]);
-		h3->SubDivide(Limit, ChildBound[2], &ChildCells[2]);
-		h4->SubDivide(Limit, ChildBound[3], &ChildCells[3]);
+		h1->SubDivide(Limit, ChildBound[0], ChildCells[0], SubActual++, MaxDiv);
+		h2->SubDivide(Limit, ChildBound[1], ChildCells[1], SubActual++, MaxDiv);
+		h3->SubDivide(Limit, ChildBound[2], ChildCells[2], SubActual++, MaxDiv);
+		h4->SubDivide(Limit, ChildBound[3], ChildCells[3], SubActual++, MaxDiv);
 	}
 }
 
@@ -287,14 +287,24 @@ void CQuadtreeNode::SetLimits(AABB_2D Limits)
 {
 	bounds = Limits;
 
-	for (int i = 0; i < 12; i++)
-	{
-		Vertices[i] = bounds.corners[i].getX();
-		Vertices[i] = bounds.corners[i].getY();
-		Vertices[i] = bounds.corners[i].getZ();
-	}
-
 	
+	
+	Vertices[0] = bounds.corners[0].getX();
+	Vertices[1] = bounds.corners[0].getY();
+	Vertices[2] = bounds.corners[0].getZ();
+
+	Vertices[3] = bounds.corners[1].getX();
+	Vertices[4] = bounds.corners[1].getY();
+	Vertices[5] = bounds.corners[1].getZ();
+	
+	Vertices[6] = bounds.corners[2].getX();
+	Vertices[7] = bounds.corners[2].getY();
+	Vertices[8] = bounds.corners[2].getZ();
+	
+	Vertices[9] = bounds.corners[3].getX();
+	Vertices[10] = bounds.corners[3].getY();
+	Vertices[11] = bounds.corners[3].getZ();
+
 	Indices[0] = 0;
 	Indices[1] = 1;
 	Indices[2] = 2;
@@ -305,3 +315,4 @@ void CQuadtreeNode::SetLimits(AABB_2D Limits)
 
 }
 
+//Im A PICE OF SHIT

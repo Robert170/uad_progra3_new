@@ -53,6 +53,7 @@ void CHexGridCell::P(CVector3 Pos)
 
 CVector3 CHexGridCell::getCorner(int k)
 {
+
 	return CVector3();
 }
 

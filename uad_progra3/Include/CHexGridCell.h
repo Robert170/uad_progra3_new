@@ -27,11 +27,8 @@ public:
 	void P(CVector3 Pos);
 	CVector3 getCorner(int k);
 	int getTriangleCount();
-
-
-
-
-
+	float TAM;
+	bool PoOFl;
 	CVector3 Position;
 
 
