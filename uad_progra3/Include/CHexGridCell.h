@@ -2,6 +2,7 @@
 #include "CVector3.h"
 
 #include "../Include/COpenGLRenderer.h"
+#include <vector>
 
 
 class CHexGridCell 
@@ -24,6 +25,9 @@ public:
 	CHexGridCell(int window_width, int window_height);
 	~CHexGridCell();
 	void P(CVector3 Pos);
+	CVector3 getCorner(int k);
+	int getTriangleCount();
+
 
 
 

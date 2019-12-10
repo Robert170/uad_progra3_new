@@ -186,10 +186,16 @@
     <ClInclude Include="Include\CAppQuadtree.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Include\AABB.h">
+    <ClInclude Include="Include\Ccamera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Ccamera.h">
+    <ClInclude Include="Include\CFrustum.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\CPlane.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\AABB_2D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -299,10 +305,16 @@
     <ClCompile Include="Source\CAppQuadtree.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\AABB.cpp">
+    <ClCompile Include="Source\Ccamera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Ccamera.cpp">
+    <ClCompile Include="Source\CFrustum.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\CPlane.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\AABB_2D.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

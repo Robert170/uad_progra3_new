@@ -150,7 +150,7 @@ void CappHexGrid::initialize()
 
 
 	
-
+	//Meter a stargrid
 	m_Grid = new CHexGrid(Parametros);
 	m_Grid->createHexGeometry(getOpenGLRenderer(), m_colorModelShaderId);
 

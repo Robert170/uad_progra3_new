@@ -15,12 +15,14 @@ using namespace std;
 #include "Include/CAppFbxLoader.h"
 #include "Include/CappHexGrid.h"
 #include "Include/Hexa_World.h"
+#include "Include/CAppQuadtree.h"
+
 
 
 int main()
 {
-	CappHexGrid *app = NULL;					// Pointer to BASE class CApp
-	app = new CappHexGrid(800, 600);		// Using pointer to base class, create a new object of DERIVED class
+	CAppQuadtree *app = NULL;					// Pointer to BASE class CApp
+	app = new CAppQuadtree(800, 600);		// Using pointer to base class, create a new object of DERIVED class
 	app->run();							// Run the app
 	delete app;							// Delete pointer
 	app = NULL;							// Set pointer to NULL

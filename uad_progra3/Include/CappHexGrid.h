@@ -52,6 +52,10 @@ public:
 	void onF2(int mods);
 	void onF3(int mods);
 
+	CHexGrid *m_Grid;
+
+	unsigned int m_colorModelShaderId;
+
 private:
 	// Pointer to an object of type C3DModel
 	C3DModel *m_p3DModel;
@@ -77,10 +81,6 @@ private:
 
 	int m_renderPolygonMode;
 
-
-	// OpenGL Shader Program for the color-only object
-	unsigned int m_colorModelShaderId;
-
 	// OpenGL Shader Program for the textured object
 	unsigned int m_texturedModelShaderId;
 
@@ -89,7 +89,7 @@ private:
 
 	bool m_initialized;
 
-	CHexGrid *m_Grid;
+
 
 	int Cont = 0;
 
